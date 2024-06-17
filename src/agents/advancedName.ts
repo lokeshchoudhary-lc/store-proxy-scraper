@@ -40,10 +40,12 @@ export const advancedName = generateAgent('https://advanced.name/freeproxy', asy
             full: `${host}:${port}`,
             country: elem.find('td:nth-child(5) > a').text().trim().toLowerCase(),
             protocol:
-                [...elem.find('td:nth-child(4) > a:not(:last-child)')]
-                    .map((a) => $(a).text().trim())
-                    .join(',')
-                    .toLowerCase() || null,
+                elem.find('td:nth-child(4) > a').length === 1
+                    ? elem.find('td:nth-child(4) > a').text().trim().toLowerCase()
+                    : [...elem.find('td:nth-child(4) > a:not(:last-child)')]
+                        .map((a) => $(a).text().trim())
+                        .join(',')
+                        .toLowerCase() || null,
             anonymity:
                 elem.find('td:nth-child(4) > a').length === 1
                     ? null
